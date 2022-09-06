@@ -834,4 +834,8 @@
     self.portraitControlView.backBtnClickCallback = _backBtnClickCallback;
 }
 
+- (void)setEpisodeBtnClickCallback:(void (^)(void))episodeBtnClickCallback {
+    _episodeBtnClickCallback = [episodeBtnClickCallback copy];
+    self.landScapeControlView.episodeBtnClickCallback = _episodeBtnClickCallback;
+}
 @end

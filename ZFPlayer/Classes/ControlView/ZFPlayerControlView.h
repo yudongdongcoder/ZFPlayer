@@ -86,6 +86,9 @@
 /// 返回按钮点击回调
 @property (nonatomic, copy) void(^backBtnClickCallback)(void);
 
+/// 选集按钮点击回调
+@property (nonatomic, copy) void(^episodeBtnClickCallback)(void);
+
 /// 控制层显示或者隐藏
 @property (nonatomic, readonly) BOOL controlViewAppeared;
 
