@@ -831,7 +831,11 @@
 - (void)setBackBtnClickCallback:(void (^)(void))backBtnClickCallback {
     _backBtnClickCallback = [backBtnClickCallback copy];
     self.landScapeControlView.backBtnClickCallback = _backBtnClickCallback;
-    self.portraitControlView.backBtnClickCallback = _backBtnClickCallback;
+}
+
+- (void)setPortraitBackBtnClickCallback:(void (^)(void))portraitBackBtnClickCallback {
+    _portraitBackBtnClickCallback = [portraitBackBtnClickCallback copy];
+    self.portraitControlView.backBtnClickCallback = _portraitBackBtnClickCallback;
 }
 
 - (void)setEpisodeBtnClickCallback:(void (^)(void))episodeBtnClickCallback {
