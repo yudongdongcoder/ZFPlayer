@@ -249,6 +249,7 @@
     }else if(rate==2){
         rate=0.5;
     }
+    self.player.currentPlayerManager.rate = rate;
     self.rate = rate;
 }
 
@@ -266,6 +267,7 @@
         value = 0;
     }
     self.playerLayerGravity = value;
+    self.player.currentPlayerManager.scalingMode = value;
 }
 
 - (void)playPauseButtonClickAction:(UIButton *)sender {
@@ -367,6 +369,8 @@
         self.topToolView.alpha       = 1;
         self.bottomToolView.alpha    = 1;
     }
+    self.playerLayerGravity = self.player.currentPlayerManager.scalingMode;
+    self.rate = self.player.currentPlayerManager.rate;
 }
 
 - (void)hideControlView {
@@ -574,7 +578,6 @@
             [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
         }
     }
-    self.player.currentPlayerManager.rate = rate;
 }
 
 //设置playerLayer的填充模式
@@ -595,7 +598,6 @@
         default:
             break;
     }
-    self.player.currentPlayerManager.scalingMode = playerLayerGravity;
 }
 
 @end
