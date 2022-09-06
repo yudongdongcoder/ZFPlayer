@@ -9,5 +9,5 @@ target 'ZFPlayer_Example' do
     pod 'ZFPlayer/AVPlayer', :path => '../'
     pod 'ZFPlayer/ijkplayer', :path => '../'
 
-    pod 'IJKMediaFramework'
+#    pod 'IJKMediaFramework'
 end

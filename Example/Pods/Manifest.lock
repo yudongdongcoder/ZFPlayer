@@ -15,7 +15,6 @@ PODS:
 
 DEPENDENCIES:
   - FDFullscreenPopGesture
-  - IJKMediaFramework
   - MJRefresh
   - ZFPlayer (from `../`)
   - ZFPlayer/AVPlayer (from `../`)
@@ -38,6 +37,6 @@ SPEC CHECKSUMS:
   MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
   ZFPlayer: 624c92de06eb34df322c3b53b4c9ce760f528f7a
 
-PODFILE CHECKSUM: 91d4e947ed3e1ef7814bde63e572dc9e98df41a8
+PODFILE CHECKSUM: 6ca353baed74fce66732e7f55a71f38a7271b73f
 
 COCOAPODS: 1.11.3
