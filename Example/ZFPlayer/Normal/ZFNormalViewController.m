@@ -143,7 +143,7 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
 }
 
 - (void)changeVideo:(UIButton *)sender {
-    NSString *URLString = @"https://www.apple.com/105/media/cn/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/bruce/mac-bruce-tpl-cn-2018_1280x720h.mp4";
+    NSString *URLString = @"https://m3u8.zhisongip.com:38741/video/df26583127033b765f1e81e4453479da.m3u8";
     self.player.assetURL = [NSURL URLWithString:URLString];
     [self.controlView showTitle:@"Apple" coverURLString:kVideoCover fullScreenMode:ZFFullScreenModeAutomatic];
 }

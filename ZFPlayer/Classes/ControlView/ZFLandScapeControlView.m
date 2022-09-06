@@ -48,6 +48,12 @@
 @property (nonatomic, strong) ZFSliderView *slider;
 /// 视频总时间
 @property (nonatomic, strong) UILabel *totalTimeLabel;
+/// 视频总时间
+@property (nonatomic, strong) UIButton *rateBtn;
+/// 视频总时间
+@property (nonatomic, strong) UIButton *episodeBtn;
+/// 视频总时间
+@property (nonatomic, strong) UIButton *gravityBtn;
 /// 锁定屏幕按钮
 @property (nonatomic, strong) UIButton *lockBtn;
 
@@ -72,6 +78,9 @@
         
         [self.bottomToolView addSubview:self.slider];
         [self.bottomToolView addSubview:self.totalTimeLabel];
+        [self.bottomToolView addSubview:self.rateBtn];
+        [self.bottomToolView addSubview:self.episodeBtn];
+        [self.bottomToolView addSubview:self.gravityBtn];
         [self addSubview:self.lockBtn];
         
         // 设置子控件的响应事件
@@ -137,8 +146,31 @@
     self.currentTimeLabel.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.currentTimeLabel.zf_centerY = self.playOrPauseBtn.zf_centerY;
     
-    min_w = 62;
+    min_w = 45;
     min_x = self.bottomToolView.zf_width - min_w - ((iPhoneX && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) ? 44: min_margin);
+    min_y = 0;
+    min_h = 30;
+    self.episodeBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    self.episodeBtn.zf_centerY = self.playOrPauseBtn.zf_centerY;
+    
+    min_w = 45;
+    min_x = self.episodeBtn.zf_left - 5 - min_w;
+    min_y = 0;
+    min_h = 30;
+    self.gravityBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    self.gravityBtn.zf_centerY = self.playOrPauseBtn.zf_centerY;
+    
+    min_w = 45;
+    min_x = self.gravityBtn.zf_left - 5 - min_w;
+    min_y = 0;
+    min_h = 30;
+    self.rateBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    self.rateBtn.zf_centerY = self.playOrPauseBtn.zf_centerY;
+    
+    
+    min_w = 62;
+//    min_x = self.bottomToolView.zf_width - min_w - ((iPhoneX && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) ? 44: min_margin);
+    min_x = self.rateBtn.zf_left - 5 - min_w;
     min_y = 0;
     min_h = 30;
     self.totalTimeLabel.frame = CGRectMake(min_x, min_y, min_w, min_h);
@@ -176,6 +208,9 @@
 
 - (void)makeSubViewsAction {
     [self.backBtn addTarget:self action:@selector(backBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rateBtn addTarget:self action:@selector(rateBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.episodeBtn addTarget:self action:@selector(episodeBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.gravityBtn addTarget:self action:@selector(gravityBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.playOrPauseBtn addTarget:self action:@selector(playPauseButtonClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.lockBtn addTarget:self action:@selector(lockButtonClickAction:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -197,6 +232,40 @@
     if (self.backBtnClickCallback) {
         self.backBtnClickCallback();
     }
+}
+- (void)rateBtnClickAction:(UIButton *)rateBtn {
+    CGFloat rate = 1.0f;
+    if (![rateBtn.currentTitle isEqualToString:@"倍速"]) {
+        rate = [rateBtn.currentTitle floatValue];
+    }
+    if(rate==0.5){
+        rate+=0.5;
+    }else if(rate==1.0){
+        rate+=0.25;
+    }else if(rate==1.25){
+        rate+=0.25;
+    }else if(rate==1.5){
+        rate+=0.5;
+    }else if(rate==2){
+        rate=0.5;
+    }
+    self.rate = rate;
+}
+
+
+- (void)episodeBtnClickAction:(UIButton *)sender {
+    if (self.episodeBtnClickCallback) {
+        self.episodeBtnClickCallback();
+    }
+}
+
+- (void)gravityBtnClickAction:(UIButton *)sender {
+    NSInteger value = self.player.currentPlayerManager.scalingMode;
+    value += 1;
+    if (value > 3) {
+        value = 0;
+    }
+    self.playerLayerGravity = value;
 }
 
 - (void)playPauseButtonClickAction:(UIButton *)sender {
@@ -270,6 +339,7 @@
     self.slider.bufferValue          = 0;
     self.currentTimeLabel.text       = @"00:00";
     self.totalTimeLabel.text         = @"00:00";
+//    [self.gravityBtn setTitle:@"默认" forState:UIControlStateNormal]
     self.backgroundColor             = [UIColor clearColor];
     self.playOrPauseBtn.selected     = YES;
     self.titleLabel.text             = @"";
@@ -390,6 +460,36 @@
     return _backBtn;
 }
 
+- (UIButton *)rateBtn {
+    if (!_rateBtn) {
+        _rateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rateBtn setTitle:@"倍速" forState:UIControlStateNormal];
+        _rateBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
+//        _rateBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _rateBtn;
+}
+
+- (UIButton *)episodeBtn {
+    if (!_episodeBtn) {
+        _episodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_episodeBtn setTitle:@"选集" forState:UIControlStateNormal];
+        _episodeBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
+//        _episodeBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _episodeBtn;
+}
+
+- (UIButton *)gravityBtn {
+    if (!_gravityBtn) {
+        _gravityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_gravityBtn setTitle:@"默认" forState:UIControlStateNormal];
+        _gravityBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
+//        _gravityBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    }
+    return _gravityBtn;
+}
+
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
@@ -457,6 +557,45 @@
         [_lockBtn setImage:ZFPlayer_Image(@"ZFPlayer_lock-nor") forState:UIControlStateSelected];
     }
     return _lockBtn;
+}
+
+#pragma mark - add
+
+-(void)setRate:(CGFloat)rate{
+    if(rate==1.25){
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateNormal];
+        [self.rateBtn setTitle:[NSString stringWithFormat:@"%.2fX",rate] forState:UIControlStateSelected];
+    }else{
+        if (rate==1.0) {
+            [self.rateBtn setTitle:@"倍速" forState:UIControlStateNormal];
+            [self.rateBtn setTitle:@"倍速" forState:UIControlStateSelected];
+        }else{
+            [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateNormal];
+            [self.rateBtn setTitle:[NSString stringWithFormat:@"%.1fX",rate] forState:UIControlStateSelected];
+        }
+    }
+    self.player.currentPlayerManager.rate = rate;
+}
+
+//设置playerLayer的填充模式
+- (void)setPlayerLayerGravity:(ZFPlayerScalingMode)playerLayerGravity {
+    switch (playerLayerGravity) {
+        case ZFPlayerScalingModeNone:
+            [self.gravityBtn setTitle:@"默认" forState: UIControlStateNormal];
+            break;
+        case ZFPlayerScalingModeAspectFit:
+            [self.gravityBtn setTitle:@"适合" forState: UIControlStateNormal];
+            break;
+        case ZFPlayerScalingModeFill:
+            [self.gravityBtn setTitle:@"拉伸" forState: UIControlStateNormal];
+            break;
+        case ZFPlayerScalingModeAspectFill:
+            [self.gravityBtn setTitle:@"填满" forState: UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+    self.player.currentPlayerManager.scalingMode = playerLayerGravity;
 }
 
 @end

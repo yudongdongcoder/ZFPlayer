@@ -38,6 +38,10 @@
 @property (nonatomic, strong) UIView *topToolView;
 /// 标题
 @property (nonatomic, strong) UILabel *titleLabel;
+
+/// 返回按钮
+@property (nonatomic, strong) UIButton *backBtn;
+
 /// 播放或暂停按钮
 @property (nonatomic, strong) UIButton *playOrPauseBtn;
 /// 播放的当前时间 
@@ -62,6 +66,7 @@
         [self addSubview:self.bottomToolView];
         [self addSubview:self.playOrPauseBtn];
         [self.topToolView addSubview:self.titleLabel];
+        [self.topToolView addSubview:self.backBtn];
         [self.bottomToolView addSubview:self.currentTimeLabel];
         [self.bottomToolView addSubview:self.slider];
         [self.bottomToolView addSubview:self.totalTimeLabel];
@@ -93,12 +98,19 @@
     min_h = 40;
     self.topToolView.frame = CGRectMake(min_x, min_y, min_w, min_h);
     
-    min_x = 15;
+    min_x = 5;
+    min_y = 5;
+    min_w = 40;
+    min_h = 40;
+    self.backBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    
+    min_x = self.backBtn.zf_right + 5;;
     min_y = 5;
     min_w = min_view_w - min_x - 15;
     min_h = 30;
     self.titleLabel.frame = CGRectMake(min_x, min_y, min_w, min_h);
-    
+    self.titleLabel.zf_centerY = self.backBtn.zf_centerY;
+
     min_h = 40;
     min_x = 0;
     min_y = min_view_h - min_h;
@@ -151,11 +163,19 @@
 }
 
 - (void)makeSubViewsAction {
+    [self.backBtn addTarget:self action:@selector(backBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.playOrPauseBtn addTarget:self action:@selector(playPauseButtonClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.fullScreenBtn addTarget:self action:@selector(fullScreenButtonClickAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - action
+
+- (void)backBtnClickAction:(UIButton *)sender {
+    self.player.lockedScreen = NO;
+    if (self.backBtnClickCallback) {
+        self.backBtnClickCallback();
+    }
+}
 
 - (void)playPauseButtonClickAction:(UIButton *)sender {
     [self playOrPause];
@@ -314,6 +334,14 @@
         _topToolView.layer.contents = (id)image.CGImage;
     }
     return _topToolView;
+}
+
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_backBtn setImage:ZFPlayer_Image(@"ZFPlayer_back_full") forState:UIControlStateNormal];
+    }
+    return _backBtn;
 }
 
 - (UILabel *)titleLabel {

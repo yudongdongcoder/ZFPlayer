@@ -5,5 +5,9 @@ target 'ZFPlayer_Example' do
     pod 'FDFullscreenPopGesture'
     pod 'MJRefresh'
     pod 'ZFPlayer', :path => '../'
+    pod 'ZFPlayer/ControlView', :path => '../'
+    pod 'ZFPlayer/AVPlayer', :path => '../'
+    pod 'ZFPlayer/ijkplayer', :path => '../'
 
+    pod 'IJKMediaFramework'
 end

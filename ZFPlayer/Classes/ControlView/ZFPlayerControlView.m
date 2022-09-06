@@ -831,6 +831,7 @@
 - (void)setBackBtnClickCallback:(void (^)(void))backBtnClickCallback {
     _backBtnClickCallback = [backBtnClickCallback copy];
     self.landScapeControlView.backBtnClickCallback = _backBtnClickCallback;
+    self.portraitControlView.backBtnClickCallback = _backBtnClickCallback;
 }
 
 @end
