@@ -86,6 +86,9 @@
 /// 返回按钮点击回调
 @property (nonatomic, copy) void(^backBtnClickCallback)(void);
 
+/// 返回按钮点击回调
+@property (nonatomic, copy) void(^portraitBackBtnClickCallback)(void);
+
 /// 选集按钮点击回调
 @property (nonatomic, copy) void(^episodeBtnClickCallback)(void);
 
