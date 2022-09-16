@@ -48,7 +48,19 @@
     if (!UIDeviceOrientationIsValidInterfaceOrientation([UIDevice currentDevice].orientation)) {
         return;
     }
-    UIInterfaceOrientation newOrientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
+    
+//    UIInterfaceOrientation newOrientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
+    
+    UIInterfaceOrientation newOrientation = UIInterfaceOrientationUnknown;
+     if (@available(iOS 16.0, *)) {
+         // iOS16 需要使用 UIWindowScene 来区分横竖屏
+         NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+         UIWindowScene *scene = [array firstObject];
+         newOrientation = scene.interfaceOrientation;
+     }else{
+         newOrientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
+     }
+    
     UIInterfaceOrientation oldOrientation = _currentOrientation;
     if (UIInterfaceOrientationIsLandscape(newOrientation)) {
         if (self.contentView.superview != self.view) {
