@@ -227,12 +227,7 @@
     self.player.lockedScreen = NO;
     self.lockBtn.selected = NO;
     if (self.player.orientationObserver.supportInterfaceOrientation & ZFInterfaceOrientationMaskPortrait) {
-        if (@available(iOS 16.0, *)) {
-            [self.player enterFullScreen:NO animated:NO];
-        } else {
-            [self.player enterFullScreen:NO animated:YES];
-        }
-        //        [self.player enterFullScreen:NO animated:YES];
+        [self.player enterFullScreen:NO animated:YES];
     }
     if (self.backBtnClickCallback) {
         self.backBtnClickCallback();
