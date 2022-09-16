@@ -205,6 +205,18 @@
         [invocation setArgument:&val atIndex:2];
         [invocation invoke];
     }
+    if (@available(iOS 16.0, *)) {
+        // 原来在shouldAutorotate里调用，iOS16改为手动调
+        [self ls_shouldAutorotate];
+        NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+        UIWindowScene *scene = (UIWindowScene *)array.firstObject;
+        UIWindowSceneGeometryPreferencesIOS *geometryPreferences = [[UIWindowSceneGeometryPreferencesIOS alloc] init];
+        [geometryPreferences setValue:@(orientation) forKey:@"interfaceOrientations"];
+        [scene requestGeometryUpdateWithPreferences:geometryPreferences
+            errorHandler:^(NSError * _Nonnull error) {
+            NSLog(@"--------Orientation Error: %@",error);
+        }];
+    }
 }
 
 #pragma mark - public
