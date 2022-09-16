@@ -207,6 +207,7 @@
     }
     if (@available(iOS 16.0, *)) {
         // 原来在shouldAutorotate里调用，iOS16改为手动调
+        [UIWindow.zf_currentViewController setNeedsUpdateOfSupportedInterfaceOrientations];
         [self ls_shouldAutorotate];
         NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
         UIWindowScene *scene = (UIWindowScene *)array.firstObject;
