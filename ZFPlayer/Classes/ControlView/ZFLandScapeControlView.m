@@ -102,14 +102,14 @@
     CGFloat min_view_w = self.bounds.size.width;
     CGFloat min_view_h = self.bounds.size.height;
     
-    CGFloat min_margin = 9; 
+    CGFloat min_margin = 9;
     
     min_x = 0;
     min_y = 0;
     min_w = min_view_w;
     min_h = iPhoneX ? 110 : 80;
     self.topToolView.frame = CGRectMake(min_x, min_y, min_w, min_h);
-
+    
     min_x = (iPhoneX && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) ? 44: 15;
     if (@available(iOS 13.0, *)) {
         min_y = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? 10 : (iPhoneX ? 40 : 20);
@@ -169,7 +169,7 @@
     
     
     min_w = 62;
-//    min_x = self.bottomToolView.zf_width - min_w - ((iPhoneX && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) ? 44: min_margin);
+    //    min_x = self.bottomToolView.zf_width - min_w - ((iPhoneX && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) ? 44: min_margin);
     min_x = self.rateBtn.zf_left - 5 - min_w;
     min_y = 0;
     min_h = 30;
@@ -227,7 +227,12 @@
     self.player.lockedScreen = NO;
     self.lockBtn.selected = NO;
     if (self.player.orientationObserver.supportInterfaceOrientation & ZFInterfaceOrientationMaskPortrait) {
-        [self.player enterFullScreen:NO animated:YES];
+        //        [self.player enterFullScreen:NO animated:YES];
+        if (@available(iOS 16.0, *)) {
+            [self.player enterFullScreen:NO animated:NO];
+        } else {
+            [self.player enterFullScreen:NO animated:YES];
+        }
     }
     if (self.backBtnClickCallback) {
         self.backBtnClickCallback();
@@ -341,7 +346,7 @@
     self.slider.bufferValue          = 0;
     self.currentTimeLabel.text       = @"00:00";
     self.totalTimeLabel.text         = @"00:00";
-//    [self.gravityBtn setTitle:@"默认" forState:UIControlStateNormal]
+    //    [self.gravityBtn setTitle:@"默认" forState:UIControlStateNormal]
     self.backgroundColor             = [UIColor clearColor];
     self.playOrPauseBtn.selected     = YES;
     self.titleLabel.text             = @"";
@@ -469,7 +474,7 @@
         _rateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rateBtn setTitle:@"倍速" forState:UIControlStateNormal];
         _rateBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
-//        _rateBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+        //        _rateBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     }
     return _rateBtn;
 }
@@ -479,7 +484,7 @@
         _episodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_episodeBtn setTitle:@"选集" forState:UIControlStateNormal];
         _episodeBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
-//        _episodeBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+        //        _episodeBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     }
     return _episodeBtn;
 }
@@ -489,7 +494,7 @@
         _gravityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_gravityBtn setTitle:@"默认" forState:UIControlStateNormal];
         _gravityBtn.titleLabel.font = [UIFont systemFontOfSize:15.f];
-//        _gravityBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+        //        _gravityBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     }
     return _gravityBtn;
 }
