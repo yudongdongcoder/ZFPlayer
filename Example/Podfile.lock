@@ -1,30 +1,27 @@
 PODS:
   - FDFullscreenPopGesture (1.1)
-  - IJKMediaFramework (0.1.5)
   - MJRefresh (3.4.3)
   - ZFPlayer (4.0.3):
+    - ZFPlayer/AVPlayer (= 4.0.3)
+    - ZFPlayer/ControlView (= 4.0.3)
     - ZFPlayer/Core (= 4.0.3)
+    - ZFPlayer/ijkplayer (= 4.0.3)
   - ZFPlayer/AVPlayer (4.0.3):
     - ZFPlayer/Core
   - ZFPlayer/ControlView (4.0.3):
     - ZFPlayer/Core
   - ZFPlayer/Core (4.0.3)
   - ZFPlayer/ijkplayer (4.0.3):
-    - IJKMediaFramework
     - ZFPlayer/Core
 
 DEPENDENCIES:
   - FDFullscreenPopGesture
   - MJRefresh
   - ZFPlayer (from `../`)
-  - ZFPlayer/AVPlayer (from `../`)
-  - ZFPlayer/ControlView (from `../`)
-  - ZFPlayer/ijkplayer (from `../`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - FDFullscreenPopGesture
-    - IJKMediaFramework
     - MJRefresh
 
 EXTERNAL SOURCES:
@@ -33,10 +30,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  IJKMediaFramework: f1119f6324c96bc4654f3045a5beaa95ba0596c0
   MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
-  ZFPlayer: 624c92de06eb34df322c3b53b4c9ce760f528f7a
+  ZFPlayer: 78111592d94b14de13b43bd920d3471ba506a34c
 
-PODFILE CHECKSUM: 6ca353baed74fce66732e7f55a71f38a7271b73f
+PODFILE CHECKSUM: a3fcbbaf309343c1c9575737d409bf95b447eef9
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.1

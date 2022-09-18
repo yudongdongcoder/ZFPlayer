@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, ZFRotateType) {
  Rotation of support direction
  */
 typedef NS_OPTIONS(NSUInteger, ZFInterfaceOrientationMask) {
+    ZFInterfaceOrientationMaskUnknow = 0,
     ZFInterfaceOrientationMaskPortrait = (1 << 0),
     ZFInterfaceOrientationMaskLandscapeLeft = (1 << 1),
     ZFInterfaceOrientationMaskLandscapeRight = (1 << 2),
@@ -83,13 +84,8 @@ typedef NS_OPTIONS(NSUInteger, ZFDisablePortraitGestureTypes) {
 - (void)updateRotateView:(ZFPlayerView *)rotateView
            containerView:(UIView *)containerView;
 
-/// list play
-- (void)updateRotateView:(ZFPlayerView *)rotateView
-        rotateViewAtCell:(UIView *)cell
-           playerViewTag:(NSInteger)playerViewTag;
-
 /// Container view of a full screen state player.
-@property (nonatomic, strong) UIView *fullScreenContainerView;
+@property (nonatomic, strong, readonly, nullable) UIView *fullScreenContainerView;
 
 /// Container view of a small screen state player.
 @property (nonatomic, weak) UIView *containerView;
@@ -127,10 +123,6 @@ typedef NS_OPTIONS(NSUInteger, ZFDisablePortraitGestureTypes) {
 
 /// default is ZFDisablePortraitGestureTypesAll.
 @property (nonatomic, assign) ZFDisablePortraitGestureTypes disablePortraitGestureTypes;
-
-/// The current orientation of the player.
-/// Default is UIInterfaceOrientationPortrait.
-@property (nonatomic, readonly) UIInterfaceOrientation currentOrientation;
 
 /// Whether allow the video orientation rotate.
 /// default is YES.

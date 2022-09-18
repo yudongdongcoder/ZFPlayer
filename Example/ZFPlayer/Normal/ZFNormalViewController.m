@@ -102,12 +102,9 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
     self.player.controlView = self.controlView;
     /// 设置退到后台继续播放
     self.player.pauseWhenAppResignActive = NO;
-    self.player.resumePlayRecord = YES;
+//    self.player.resumePlayRecord = YES;
     
     @zf_weakify(self)
-    self.player.orientationWillChange = ^(ZFPlayerController * _Nonnull player, BOOL isFullScreen) {
-        kAPPDelegate.allowOrentitaionRotation = isFullScreen;
-    };
     
     /// 播放完成
     self.player.playerDidToEnd = ^(id  _Nonnull asset) {
@@ -124,11 +121,6 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
     self.player.assetURLs = self.assetURLs;
     [self.player playTheIndex:0];
     [self.controlView showTitle:@"iPhone X" coverURLString:kVideoCover fullScreenMode:ZFFullScreenModeAutomatic];
-    
-    
-    
-    
-    
 }
 
 - (void)picBtnClick {
@@ -143,9 +135,9 @@ static NSString *kVideoCover = @"https://upload-images.jianshu.io/upload_images/
 }
 
 - (void)changeVideo:(UIButton *)sender {
-    NSString *URLString = @"https://m3u8.zhisongip.com:38741/video/df26583127033b765f1e81e4453479da.m3u8";
+    NSString *URLString = @"https://www.apple.com.cn/105/media/cn/airpods-pro/2022/d2deeb8e-83eb-48ea-9721-f567cf0fffa8/films/under-the-spell/airpods-pro-under-the-spell-tpl-cn-2022_16x9.m3u8";
     self.player.assetURL = [NSURL URLWithString:URLString];
-    [self.controlView showTitle:@"Apple" coverURLString:kVideoCover fullScreenMode:ZFFullScreenModeAutomatic];
+    [self.controlView showTitle:@"AirPods" coverURLString:kVideoCover fullScreenMode:ZFFullScreenModeAutomatic];
 }
 
 - (void)playClick:(UIButton *)sender {
