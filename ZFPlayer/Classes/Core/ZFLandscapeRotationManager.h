@@ -46,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// default is YES.
 @property (nonatomic, assign) BOOL allowOrientationRotation;
 
+/// Lock screen orientation
+@property (nonatomic, getter=isLockedScreen) BOOL lockedScreen;
+
 @property (nonatomic, assign) BOOL disableAnimations;
 
 /// The support Interface Orientation,default is ZFInterfaceOrientationMaskAllButUpsideDown
@@ -56,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) UIInterfaceOrientation currentOrientation;
 
 @property (nonatomic, strong, readonly, nullable) ZFLandscapeViewController *landscapeViewController;
+
+/// current device orientation observer is activie.
+@property (nonatomic, assign) BOOL activeDeviceObserver;
 
 - (void)interfaceOrientation:(UIInterfaceOrientation)orientation completion:(void(^ __nullable)(void))completion;
 
@@ -70,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// update the rotateView and containerView.
 - (void)updateRotateView:(ZFPlayerView *)rotateView
            containerView:(UIView *)containerView;
+
+- (BOOL)isSuppprtInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 + (ZFInterfaceOrientationMask)supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window;
 

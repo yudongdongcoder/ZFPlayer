@@ -26,9 +26,6 @@
 
 @interface ZFLandscapeRotationManager ()  <ZFLandscapeViewControllerDelegate>
 
-/// current device orientation observer is activie.
-@property (nonatomic, assign) BOOL activeDeviceObserver;
-
 @end
 
 @implementation ZFLandscapeRotationManager
@@ -36,8 +33,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _supportInterfaceOrientation = ZFInterfaceOrientationMaskAllButUpsideDown;
-        _allowOrientationRotation = YES;
         _currentOrientation = UIInterfaceOrientationPortrait;
     }
     return self;
@@ -60,7 +55,7 @@
 }
 
 - (void)handleDeviceOrientationChange {
-    if (!self.allowOrientationRotation) return;
+    if (!self.allowOrientationRotation || self.isLockedScreen) return;
     if (!UIDeviceOrientationIsValidInterfaceOrientation([UIDevice currentDevice].orientation)) {
         return;
     }
@@ -94,6 +89,19 @@
     }
 }
 
+- (BOOL)isSuppprtInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if (orientation == UIInterfaceOrientationPortrait) {
+        return [self _isSupportedPortrait];
+    } else if (orientation == UIInterfaceOrientationLandscapeLeft) {
+        return [self _isSupportedLandscapeLeft];
+    } else if (orientation == UIInterfaceOrientationLandscapeRight) {
+        return [self _isSupportedLandscapeRight];
+    } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        return [self _isSupportedPortraitUpsideDown];
+    }
+    return NO;
+}
+
 - (void)interfaceOrientation:(UIInterfaceOrientation)orientation completion:(void(^ __nullable)(void))completion {}
 
 - (void)rotateToOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated {
@@ -121,6 +129,11 @@
 /// is support portrait
 - (BOOL)_isSupportedPortrait {
     return self.supportInterfaceOrientation & ZFInterfaceOrientationMaskPortrait;
+}
+
+/// is support portraitUpsideDown
+- (BOOL)_isSupportedPortraitUpsideDown {
+    return self.supportInterfaceOrientation & ZFInterfaceOrientationMaskPortraitUpsideDown;
 }
 
 /// is support landscapeLeft

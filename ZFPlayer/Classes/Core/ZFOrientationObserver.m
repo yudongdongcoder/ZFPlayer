@@ -42,7 +42,7 @@
 
 @implementation UIWindow (CurrentViewController)
 
-+ (UIViewController*)zf_currentViewController; {
++ (UIViewController*)zf_currentViewController {
     __block UIWindow *window;
     if (@available(iOS 13, *)) {
         [[UIApplication sharedApplication].connectedScenes enumerateObjectsUsingBlock:^(UIScene * _Nonnull scene, BOOL * _Nonnull scenesStop) {
@@ -88,6 +88,9 @@
 
 @property (nonatomic, strong) ZFLandscapeRotationManager *landscapeRotationManager;
 
+/// current device orientation observer is activie.
+@property (nonatomic, assign) BOOL activeDeviceObserver;
+
 @end
 
 @implementation ZFOrientationObserver
@@ -98,10 +101,11 @@
     if (self) {
         _duration = 0.30;
         _fullScreenMode = ZFFullScreenModeLandscape;
-        _supportInterfaceOrientation = ZFInterfaceOrientationMaskAllButUpsideDown;
-        _allowOrientationRotation = YES;
         _portraitFullScreenMode = ZFPortraitFullScreenModeScaleToFill;
         _disablePortraitGestureTypes = ZFDisablePortraitGestureTypesAll;
+        self.supportInterfaceOrientation = ZFInterfaceOrientationMaskAllButUpsideDown;
+        self.allowOrientationRotation = YES;
+        self.activeDeviceObserver = YES;
     }
     return self;
 }
@@ -120,6 +124,7 @@
 
 - (void)addDeviceOrientationObserver {
     if (self.allowOrientationRotation) {
+        self.activeDeviceObserver = YES;
         if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
             [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         }
@@ -128,6 +133,7 @@
 }
 
 - (void)removeDeviceOrientationObserver {
+    self.activeDeviceObserver = NO;
     if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
         [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     }
@@ -229,9 +235,7 @@
 - (ZFLandscapeRotationManager *)landscapeRotationManager {
     if (!_landscapeRotationManager) {
         if (@available(iOS 16.0, *)) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
             _landscapeRotationManager = [[ZFLandscapeRotationManager_iOS16 alloc] init];
-#endif
         } else {
             _landscapeRotationManager = [[ZFLandscapeRotationManager_iOS15 alloc] init];
         }
@@ -264,7 +268,7 @@
 
 - (void)setLockedScreen:(BOOL)lockedScreen {
     _lockedScreen = lockedScreen;
-    self.landscapeRotationManager.allowOrientationRotation = !lockedScreen;
+    self.landscapeRotationManager.lockedScreen = lockedScreen;
     if (lockedScreen) {
         [self removeDeviceOrientationObserver];
     } else {
@@ -345,12 +349,17 @@
 
 - (void)setAllowOrientationRotation:(BOOL)allowOrientationRotation {
     _allowOrientationRotation = allowOrientationRotation;
-    self.lockedScreen = !allowOrientationRotation;
+    self.landscapeRotationManager.allowOrientationRotation = allowOrientationRotation;
 }
 
 - (void)setSupportInterfaceOrientation:(ZFInterfaceOrientationMask)supportInterfaceOrientation {
     _supportInterfaceOrientation = supportInterfaceOrientation;
     self.landscapeRotationManager.supportInterfaceOrientation = supportInterfaceOrientation;
+}
+
+- (void)setActiveDeviceObserver:(BOOL)activeDeviceObserver {
+    _activeDeviceObserver = activeDeviceObserver;
+    self.landscapeRotationManager.activeDeviceObserver = activeDeviceObserver;
 }
 
 @end
