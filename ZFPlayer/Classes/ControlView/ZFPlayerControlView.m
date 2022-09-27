@@ -844,7 +844,7 @@
 }
 
 - (void)setEpisodeBtnHiden:(BOOL)episodeBtnHiden {
-    self.landScapeControlView.episodeBtn.hidden = episodeBtnHiden
+    self.landScapeControlView.episodeBtn.hidden = episodeBtnHiden;
 }
 
 @end
