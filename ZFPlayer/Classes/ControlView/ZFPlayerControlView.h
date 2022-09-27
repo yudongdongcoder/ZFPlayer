@@ -95,6 +95,9 @@
 /// 控制层显示或者隐藏
 @property (nonatomic, readonly) BOOL controlViewAppeared;
 
+/// 控制层显示或者隐藏
+@property (nonatomic, assign) BOOL episodeBtnHiden;
+
 /// 控制层显示或者隐藏的回调
 @property (nonatomic, copy) void(^controlViewAppearedCallback)(BOOL appeared);
 

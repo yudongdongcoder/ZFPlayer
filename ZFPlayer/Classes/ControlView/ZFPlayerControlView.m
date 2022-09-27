@@ -842,4 +842,9 @@
     _episodeBtnClickCallback = [episodeBtnClickCallback copy];
     self.landScapeControlView.episodeBtnClickCallback = _episodeBtnClickCallback;
 }
+
+- (void)setEpisodeBtnHiden:(BOOL)episodeBtnHiden {
+    self.landScapeControlView.episodeBtn.hidden = episodeBtnHiden
+}
+
 @end

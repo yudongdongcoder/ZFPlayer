@@ -76,6 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 选集按钮点击回调
 @property (nonatomic, copy) void(^episodeBtnClickCallback)(void);
 
+@property (nonatomic, strong) UIButton *episodeBtn;
+
+
 /// 如果是暂停状态，seek完是否播放，默认YES
 @property (nonatomic, assign) BOOL seekToPlay;
 

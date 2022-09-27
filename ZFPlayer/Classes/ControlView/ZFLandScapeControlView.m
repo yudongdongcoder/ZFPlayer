@@ -51,7 +51,7 @@
 /// 视频总时间
 @property (nonatomic, strong) UIButton *rateBtn;
 /// 视频总时间
-@property (nonatomic, strong) UIButton *episodeBtn;
+//@property (nonatomic, strong) UIButton *episodeBtn;
 /// 视频总时间
 @property (nonatomic, strong) UIButton *gravityBtn;
 /// 锁定屏幕按钮
