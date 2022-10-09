@@ -112,6 +112,7 @@
     } else if (scalingMode == ZFPlayerScalingModeFill) {
         self.coverImageView.contentMode = UIViewContentModeScaleToFill;
     }
+    [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 

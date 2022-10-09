@@ -261,15 +261,18 @@
 }
 
 - (void)gravityBtnClickAction:(UIButton *)sender {
-    NSInteger value = self.player.currentPlayerManager.scalingMode;
-    value += 1;
-    if (value > 3) {
-        value = 0;
+    ZFPlayerScalingMode value = self.player.currentPlayerManager.scalingMode;
+//    value += 1;
+//    if (value > 3) {
+//        value = 0;
+//    }
+    if (value == ZFPlayerScalingModeAspectFill) {
+        value = ZFPlayerScalingModeAspectFit;
+    } else {
+        value = ZFPlayerScalingModeAspectFill;
     }
     self.playerLayerGravity = value;
-    [self.player.currentPlayerManager pause];
     self.player.currentPlayerManager.scalingMode = value;
-    [self.player.currentPlayerManager play];
 }
 
 - (void)playPauseButtonClickAction:(UIButton *)sender {
