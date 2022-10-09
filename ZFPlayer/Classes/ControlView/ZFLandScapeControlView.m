@@ -267,9 +267,9 @@
         value = 0;
     }
     self.playerLayerGravity = value;
-    [self.player.currentPlayerManager pause]
+    [self.player.currentPlayerManager pause];
     self.player.currentPlayerManager.scalingMode = value;
-    [self.player.currentPlayerManager play]
+    [self.player.currentPlayerManager play];
 }
 
 - (void)playPauseButtonClickAction:(UIButton *)sender {
