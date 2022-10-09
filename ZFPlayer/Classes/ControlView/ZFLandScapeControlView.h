@@ -121,6 +121,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 滑杆结束滑动
 - (void)sliderChangeEnded;
 
+- (void)setPlayerLayerGravity:(ZFPlayerScalingMode)playerLayerGravity;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

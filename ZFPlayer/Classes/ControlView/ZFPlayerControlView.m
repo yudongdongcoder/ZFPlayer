@@ -429,8 +429,10 @@
 - (void)gesturePinched:(ZFPlayerGestureControl *)gestureControl scale:(float)scale {
     if (scale > 1) {
         self.player.currentPlayerManager.scalingMode = ZFPlayerScalingModeAspectFill;
+        [self.landScapeControlView setPlayerLayerGravity:ZFPlayerScalingModeAspectFill];
     } else {
         self.player.currentPlayerManager.scalingMode = ZFPlayerScalingModeAspectFit;
+        [self.landScapeControlView setPlayerLayerGravity:ZFPlayerScalingModeAspectFit];
     }
 }
 
